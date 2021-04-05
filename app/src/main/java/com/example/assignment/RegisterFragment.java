@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -152,23 +154,82 @@ public class RegisterFragment extends Fragment {
             usermap.put("Gender",gender);
             usermap.put("City",city);
             usermap.put("BirthDate",date);
-            auth.createUserWithEmailAndPassword(email,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if (task.isSuccessful()){
-                        FirebaseUser user = auth.getCurrentUser();
-                        db.collection("Users").document(user.getUid()).set(usermap).addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Toast.makeText(getActivity().getApplicationContext(), "Successfully Registered!", Toast.LENGTH_LONG).show();
-                                NavController navController= Navigation.findNavController(getActivity(),R.id.nav_host_fragment_start);
+
+            if (!checkEmptyField()){
+                auth.createUserWithEmailAndPassword(email,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()){
+                            FirebaseUser user = auth.getCurrentUser();
+                            db.collection("Users").document(user.getUid()).set(usermap).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(getActivity().getApplicationContext(), "Successfully Registered!", Toast.LENGTH_LONG).show();
+                                    NavController navController= Navigation.findNavController(getActivity(),R.id.nav_host_fragment_start);
+                                    navController.navigate(R.id.loginFragment);
+                                }
+                            });
+                        }else {
+                            try {
+                                throw  task.getException();
+                            }catch (FirebaseAuthUserCollisionException already) {
+                                Toast.makeText(getActivity().getApplicationContext(),"User Already Exist! Please login",Toast.LENGTH_LONG).show();
+                                NavController navController=Navigation.findNavController(getActivity(),R.id.nav_host_fragment_start);
                                 navController.navigate(R.id.loginFragment);
+                            } catch (Exception e) {
+                                e.printStackTrace();
                             }
-                        });
+                        }
                     }
-                }
-            });
+                });
+            }
+
+
 
         }
     };
+
+    public boolean checkEmptyField() {
+
+        if (TextUtils.isEmpty(name)) {
+            edt_name.setError("Name can't be Empty!");
+            edt_name.requestFocus();
+            return true;
+        }else if (TextUtils.isEmpty(email)) {
+            edt_name.setError(null);
+            edt_email.setError("Email can't be Empty!");
+            edt_email.requestFocus();
+            return true;
+        } else if (TextUtils.isEmpty(pass)) {
+            edt_email.setError(null);
+            edt_pass.setError("Password can't be Empty!");
+            edt_pass.requestFocus();
+            return true;
+        }else if (TextUtils.isEmpty(cPass)){
+            edt_pass.setError(null);
+            edt_cpass.setError("Confirm password can't be Empty!");
+            edt_cpass.requestFocus();
+            return true;
+        }else if (pass.length()<6){
+            edt_pass.getText().clear();
+            edt_pass.setError("Password can't be less than 6 characters");
+            edt_pass.requestFocus();
+            return true;
+        }else if (!pass.equals(cPass)){
+            edt_pass.getText().clear();
+            edt_cpass.getText().clear();
+            edt_pass.setError("Password doesn't match");
+            edt_pass.requestFocus();
+            return true;
+        }else if (TextUtils.isEmpty(date)){
+          edt_date.setError("Please select birth date");
+          edt_date.requestFocus();
+            return true;
+        }else if (TextUtils.isEmpty(city)){
+            edt_city.setError("Please enter your city");
+            edt_city.requestFocus();
+            return true;
+        }
+        return false;
+    }
 }

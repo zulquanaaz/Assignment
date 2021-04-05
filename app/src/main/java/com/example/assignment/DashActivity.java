@@ -9,11 +9,13 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class DashActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
@@ -21,11 +23,12 @@ public class DashActivity extends AppCompatActivity implements NavigationView.On
     public DrawerLayout drawerLayout;
     public NavController navController;
     public NavigationView navigationView;
-
+    FirebaseAuth auth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dash);
+        auth=FirebaseAuth.getInstance();
         setupNavigation();
     }
 
@@ -72,6 +75,9 @@ public class DashActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.menu_logout:
                 Toast.makeText(this,"Log Out!",Toast.LENGTH_SHORT).show();
+                auth.signOut();
+                Intent intent=new Intent(getApplicationContext(),MainActivity.class);
+                startActivity(intent);
                 break;
         }
         return true;
