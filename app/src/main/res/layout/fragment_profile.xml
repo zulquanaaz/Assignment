@@ -6,94 +6,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ProfileFragment">
 
-
-
-
-
-
-   <!-- <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/lbl_fName"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="15dp"
-        android:textSize="20sp"
-        android:text="First Name"
-        />
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/txt_fName"
-        app:layout_constraintTop_toBottomOf="@+id/lbl_fName"
-        app:layout_constraintStart_toStartOf="@id/lbl_fName"
-        android:textSize="20sp"
-        android:text="First Name"
-        />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/lbl_lName"
-        app:layout_constraintTop_toBottomOf="@+id/txt_fName"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="3dp"
-        android:layout_marginStart="35dp"
-        android:textSize="20sp"
-        android:text="Last Name"
-        />
-    <EditText
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/txt_lName"
-        app:layout_constraintTop_toBottomOf="@+id/lbl_lName"
-        app:layout_constraintStart_toStartOf="@id/lbl_lName"
-        android:textSize="20sp"
-        android:text="Last Name"
-        />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/lbl_email"
-        app:layout_constraintTop_toBottomOf="@+id/txt_lName"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="3dp"
-        android:textSize="20sp"
-        android:text="Email Id"
-        android:paddingStart="35dp"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/txt_email"
-        app:layout_constraintTop_toBottomOf="@+id/lbl_email"
-        app:layout_constraintStart_toStartOf="parent"
-        android:textSize="20sp"
-        android:text="Email"
-        android:textColor="@color/Black"
-        android:paddingStart="35dp"
-        />
-    <Button
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:id="@+id/update_email"
-        android:background="@drawable/ic_baseline_edit_24"
-        app:layout_constraintStart_toEndOf="@+id/txt_email"
-        app:layout_constraintTop_toBottomOf="@+id/lbl_email"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/lbl_level"
-        app:layout_constraintTop_toBottomOf="@+id/txt_email"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="3dp"
-        android:textSize="20sp"
-        android:text="Level:-"
-        android:textColor="@color/Black"
-        />-->
     <ImageView
         android:id="@+id/img_logo"
         android:layout_width="wrap_content"
@@ -142,7 +54,6 @@
                     android:id="@+id/txt_email"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="E-mail: - "
                     android:textColor="@color/DarkGray"
                     android:textSize="25sp"/>
             </LinearLayout>
@@ -174,7 +85,6 @@
                     android:id="@+id/txt_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="E-mail: - "
                     android:textColor="@color/DarkGray"
                     android:textSize="25sp"/>
             </LinearLayout>
@@ -206,7 +116,6 @@
                     android:id="@+id/txt_gender"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="E-mail: - "
                     android:textColor="@color/DarkGray"
                     android:textSize="25sp"/>
             </LinearLayout>
@@ -239,7 +148,6 @@
                     android:id="@+id/txt_bdate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="E-mail: - "
                     android:textColor="@color/DarkGray"
                     android:textSize="25sp"/>
             </LinearLayout>
@@ -271,7 +179,6 @@
                     android:id="@+id/txt_city"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="E-mail: - "
                     android:textColor="@color/DarkGray"
                     android:textSize="25sp"/>
             </LinearLayout>

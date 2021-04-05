@@ -13,5 +13,6 @@
         android:gravity="center"
         android:textColor="@color/DarkGray"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="20dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

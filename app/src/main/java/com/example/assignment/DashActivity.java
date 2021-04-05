@@ -12,10 +12,16 @@ import androidx.navigation.ui.NavigationUI;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class DashActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
@@ -24,12 +30,18 @@ public class DashActivity extends AppCompatActivity implements NavigationView.On
     public NavController navController;
     public NavigationView navigationView;
     FirebaseAuth auth;
+    FirebaseFirestore db;
+    TextView txt_email;
+    FirebaseUser curUser;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dash);
         auth=FirebaseAuth.getInstance();
+        db=FirebaseFirestore.getInstance();
         setupNavigation();
+        loadUserEmail();
     }
 
     private void setupNavigation() {
@@ -42,6 +54,8 @@ public class DashActivity extends AppCompatActivity implements NavigationView.On
         navController= Navigation.findNavController(this,R.id.nav_host_fragment_dash);
         NavigationUI.setupActionBarWithNavController(this,navController,drawerLayout);
         NavigationUI.setupWithNavController(navigationView,navController);
+        View header= navigationView.getHeaderView(0);
+        txt_email=header.findViewById(R.id.txt_headerEmail);
         navigationView.setNavigationItemSelectedListener(this);
     }
 
@@ -81,6 +95,16 @@ public class DashActivity extends AppCompatActivity implements NavigationView.On
                 break;
         }
         return true;
+
+    }
+    private void loadUserEmail() {
+        curUser=auth.getCurrentUser();
+        db.collection("Users").document(curUser.getUid()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                txt_email.setText(documentSnapshot.getString("Email"));
+            }
+        });
 
     }
 }
