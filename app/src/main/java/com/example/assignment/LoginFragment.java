@@ -27,6 +27,7 @@ import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 
@@ -136,5 +137,15 @@ public class LoginFragment extends Fragment {
         }
         //edt_pass.setErrorEnabled(false);
         return false;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        FirebaseUser user=auth.getCurrentUser();
+        if (user!=null){
+            Intent intent=new Intent(getActivity(),DashActivity.class);
+            startActivity(intent);
+        }
     }
 }
